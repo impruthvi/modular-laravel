@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Order\Http\Controllers\CheckoutController;
 
-Route::get('/test', function () {
-    return view('welcome');
+Route::as('order::')->middleware('auth')->group(function () {
+    Route::post('checkout', CheckoutController::class)->name('checkout');
 });

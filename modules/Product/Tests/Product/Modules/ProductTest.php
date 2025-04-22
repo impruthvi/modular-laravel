@@ -3,7 +3,6 @@
 namespace Modules\Order\Tests\Product\Modules;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Modules\Product\Models\Product;
 use Modules\Product\Tests\ProductTestCase;
 
 class ProductTest extends ProductTestCase
@@ -14,10 +13,6 @@ class ProductTest extends ProductTestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $product = Product::factory()->create();
-
-        dd($product->all());
-
         $response = $this->get('/');
 
         $response->assertStatus(200);
