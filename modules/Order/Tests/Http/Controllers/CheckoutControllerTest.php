@@ -10,6 +10,7 @@ use Modules\Order\Mail\OrderReceived;
 use Modules\Order\Models\Order;
 use Modules\Order\Tests\OrderTestCase;
 use Modules\Payment\PayBuddySdk;
+use Modules\Payment\PaymentProvider;
 use Modules\Product\Database\Factories\ProductFactory;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -60,7 +61,7 @@ class CheckoutControllerTest extends OrderTestCase
         // Payment
         $payment = $order->lastPayment;
         $this->assertEquals('paid', $payment->status);
-        $this->assertEquals('PayBuddy', $payment->payment_gateway);
+        $this->assertEquals(PaymentProvider::PayBuddy, $payment->payment_gateway);
         $this->assertEquals(36, strlen($payment->payment_id));
         $this->assertEquals(60000, $payment->total_in_cents);
         $this->assertTrue($payment->user->is($user));
