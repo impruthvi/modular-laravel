@@ -6,29 +6,28 @@ use Illuminate\Validation\ValidationException;
 use Modules\Order\Http\Requests\CheckoutRequest;
 use Modules\Order\Models\Order;
 use Modules\Payment\PayBuddy;
-use Modules\Product\Models\Product;
+use Modules\Product\CartItemCollection;
+use Modules\Product\Warehouse\ProductStockManager;
 
 class CheckoutController
 {
+    public function __construct(
+        protected ProductStockManager $productStockManager,
+    ) {}
+
     /**
      * @throws ValidationException
      */
     public function __invoke(CheckoutRequest $request)
     {
-        $products = collect($request->input('products'))->map(function (array $productDetails) {
-            return [
-                'product' => Product::find($productDetails['id']),
-                'quantity' => $productDetails['quantity'],
-            ];
-        });
 
-        $orderTotalInCents = $products->sum(fn(array $productDetails) => $productDetails['quantity'] * $productDetails['product']->price_in_cents);
-
+        $cartItems = CartItemCollection::fromCheckoutData($request->input('products'));
+        $orderTotalInCents = $cartItems->totalInCents();
         $paybuddy = PayBuddy::make();
 
         try {
             $charge = $paybuddy->charge($request->input('payment_token'), $orderTotalInCents, 'Modularization');
-        }catch (\RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             throw  ValidationException::withMessages([
                 'payment_token' => 'We could not complere your payment. Please try again.',
             ]);
@@ -42,12 +41,14 @@ class CheckoutController
             'user_id' => $request->user()->id,
         ]);
 
-        foreach ($products as $product) {
-            $product['product']->decrement('stock', $product['quantity']);
+        foreach ($cartItems->items() as $cartItem) {
+
+            $this->productStockManager->decrement($cartItem->product->id, $cartItem->quantity);
+
             $order->lines()->create([
-                'product_id' => $product['product']->id,
-                'quantity' => $product['quantity'],
-                'product_price_in_cents' => $product['product']->price_in_cents,
+                'product_id' => $cartItem->product->id,
+                'quantity' => $cartItem->quantity,
+                'product_price_in_cents' => $cartItem->product->priceInCents,
             ]);
         }
 
