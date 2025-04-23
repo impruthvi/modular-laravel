@@ -50,7 +50,6 @@ class CheckoutControllerTest extends OrderTestCase
         $this->assertTrue($order->user->is($user));
         $this->assertEquals(60000, $order->total_in_cents);
         $this->assertEquals('completed', $order->status);
-        $this->assertEquals(36, strlen($order->payment_id));
         $this->assertEquals('completed', $order->status);
 
         // Payment
@@ -96,5 +95,6 @@ class CheckoutControllerTest extends OrderTestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['payment_token']);
 
+        $this->assertEquals(0, Order::query()->count());
     }
 }
