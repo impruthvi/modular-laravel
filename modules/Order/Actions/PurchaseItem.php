@@ -21,38 +21,24 @@ class PurchaseItem
 
     public function handle(CartItemCollection $items, PayBuddy $paymentProvider, string $paymentToken, int $userId): Order
     {
-        $orderTotalInCents = $items->totalInCents();
-
-        $order = $this->databaseManager->transaction(function () use ($items, $paymentProvider, $paymentToken, $userId, $orderTotalInCents) {
-            $order = Order::query()->create([
-                'status' => 'completed',
-                'total_in_cents' => $orderTotalInCents,
-                'user_id' => $userId,
-            ]);
+        return $this->databaseManager->transaction(function () use ($items, $paymentProvider, $paymentToken, $userId) {
+            $order = Order::startForUser($userId);
+            $order->addLinesForCartItems($items);
+            $order->fulfill();
 
             foreach ($items->items() as $cartItem) {
-
                 $this->productStockManager->decrement($cartItem->product->id, $cartItem->quantity);
-
-                $order->lines()->create([
-                    'product_id' => $cartItem->product->id,
-                    'quantity' => $cartItem->quantity,
-                    'product_price_in_cents' => $cartItem->product->priceInCents,
-                ]);
             }
 
             $this->createPaymentForOrder->handle(
                 $order->id,
                 $userId,
-                $orderTotalInCents,
+                $items->totalInCents(),
                 $paymentProvider,
                 $paymentToken
             );
 
             return $order;
         });
-
-
-        return $order;
     }
 }
