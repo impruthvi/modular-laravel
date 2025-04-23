@@ -11,14 +11,12 @@ class DecrementProductStock
         protected ProductStockManager $productStockManager
     )
     {
-
     }
 
     public function handle(OrderFulfilled $event): void
     {
-        foreach ($event->cartItems->items() as $cartItem) {
-            $this->productStockManager->decrement($cartItem->product->id, $cartItem->quantity);
+        foreach ($event->order->lines as $line) {
+            $this->productStockManager->decrement($line->productId, $line->quantity);
         }
     }
-
 }
