@@ -53,6 +53,9 @@ namespace Modules\Order\Models{
  * @property string $payment_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\Order\Models\OrderLine> $lines
+ * @property-read int|null $lines_count
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
@@ -122,7 +125,7 @@ namespace Modules\Product\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $price
+ * @property string $price_in_cents
  * @property int $stock
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -133,7 +136,7 @@ namespace Modules\Product\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePriceInCents($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereStock($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
  */
