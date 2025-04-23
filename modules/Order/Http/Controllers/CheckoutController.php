@@ -35,8 +35,7 @@ class CheckoutController
 
         $order = Order::query()->create([
             'payment_id' => $charge['id'],
-            'status' => 'paid',
-            'payment_gateway' => 'PayBuddy',
+            'status' => 'completed',
             'total_in_cents' => $orderTotalInCents,
             'user_id' => $request->user()->id,
         ]);
@@ -51,6 +50,14 @@ class CheckoutController
                 'product_price_in_cents' => $cartItem->product->priceInCents,
             ]);
         }
+
+        $payment = $order->payments()->create([
+            'total_in_cents' => $orderTotalInCents,
+            'status' => 'paid',
+            'payment_gateway' => 'PayBuddy',
+            'payment_id' => $charge['id'],
+            'user_id' => $request->user()->id,
+        ]);
 
         return response()->json([], 201);
     }
