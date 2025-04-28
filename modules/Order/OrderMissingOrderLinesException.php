@@ -1,8 +1,6 @@
 <?php
 
-namespace Modules\Order\Exceptions;
-
-use RuntimeException;
+namespace Modules\Order;
 
 class OrderMissingOrderLinesException extends \RuntimeException
 {

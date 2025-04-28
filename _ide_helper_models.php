@@ -13,7 +13,7 @@
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -43,7 +43,7 @@ namespace App\Models{
 
 namespace Modules\Order\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -52,27 +52,27 @@ namespace Modules\Order\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Modules\Payment\Payment|null $lastPayment
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\Order\Models\OrderLine> $lines
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\Order\OrderLine> $lines
  * @property-read int|null $lines_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\Payment\Payment> $payments
  * @property-read int|null $payments_count
  * @property-read \App\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalInCents($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereTotalInCents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\Order whereUserId($value)
  */
 	class Order extends \Eloquent {}
 }
 
 namespace Modules\Order\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $order_id
@@ -81,23 +81,23 @@ namespace Modules\Order\Models{
  * @property int $quantity
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereOrderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereProductPriceInCents($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderLine whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereProductPriceInCents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Modules\Order\OrderLine whereUpdatedAt($value)
  */
 	class OrderLine extends \Eloquent {}
 }
 
 namespace Modules\Payment{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $total_in_cents
@@ -108,7 +108,7 @@ namespace Modules\Payment{
  * @property int $order_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Modules\Order\Models\Order|null $order
+ * @property-read \Modules\Order\Order|null $order
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newQuery()
@@ -128,7 +128,7 @@ namespace Modules\Payment{
 
 namespace Modules\Product\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $quantity
@@ -151,7 +151,7 @@ namespace Modules\Product\Models{
 
 namespace Modules\Product\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -175,7 +175,7 @@ namespace Modules\Product\Models{
 
 namespace Modules\Shipment\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $order_id

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Order\DTOs;
+namespace Modules\Order\Contracts;
 
 readonly class OrderDto
 {
@@ -21,7 +21,7 @@ readonly class OrderDto
     {
     }
 
-    public static function fromEloquentModel(\Modules\Order\Models\Order $order): self
+    public static function fromEloquentModel(\Modules\Order\Order $order): self
     {
         return new self(
             id: $order->id,
